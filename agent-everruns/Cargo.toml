@@ -9,17 +9,13 @@ description = "Everruns as an OpenBot Bot: the framework's own AG-UI run, behind
 # Out of every workspace: the image builds this directory alone, from its own lockfile.
 [workspace]
 
-# One revision for every everruns crate, because the driver crates and the facade must agree on
-# the `Provider` type they pass between them. A git pin rather than a crates.io version because
-# `Session::ag_ui` (the `ag-ui` feature) landed after 0.33.0, the latest release; move to the
-# release that carries it once there is one.
+# A git pin rather than a crates.io version because the pieces this Bot is built on (the facade's
+# provider features, per-run instructions, surface tools, thread seeding and the ready-made axum
+# handler) landed after 0.33.0, the latest release; move to the release that carries them, 0.34.0,
+# once it is published.
 [dependencies]
-everruns = { git = "https://github.com/everruns/everruns", rev = "252785c0a4a49da828ea26489bbf7e837683f42d", default-features = false, features = ["ag-ui"] }
-everruns-openai = { git = "https://github.com/everruns/everruns", rev = "252785c0a4a49da828ea26489bbf7e837683f42d" }
-everruns-anthropic = { git = "https://github.com/everruns/everruns", rev = "252785c0a4a49da828ea26489bbf7e837683f42d" }
-everruns-gemini = { git = "https://github.com/everruns/everruns", rev = "252785c0a4a49da828ea26489bbf7e837683f42d" }
+everruns = { git = "https://github.com/everruns/everruns", rev = "0045eecf7e2a6b10ede760a081bf564adf91d46a", default-features = false, features = ["ag-ui-axum", "openai", "anthropic", "gemini"] }
 axum = "0.8"
-futures = "0.3"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 tokio = { version = "1", features = ["macros", "rt-multi-thread", "net", "signal"] }
