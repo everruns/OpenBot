@@ -295,6 +295,22 @@ pub fn catalogue() -> Vec<Harness> {
             "TypeScript agents, with their own server.",
             Maintainer::Partnership,
         ),
+        /*
+         * The Everruns framework rather than an Everruns server. The AG-UI run is the framework's
+         * own (`Session::ag_ui`, maintained in the Everruns repository), so the image holds no
+         * protocol of its own, and it runs on whatever model the model screen chose. An Everruns
+         * server is a platform with its own agents, keys and policy, and its public AG-UI endpoint
+         * refuses the system messages every OpenBot run carries, so it is not offered here.
+         */
+        ours(
+            "everruns",
+            "agent-everruns",
+            4214,
+            "",
+            "Everruns",
+            "Durable agents in Rust.",
+            Maintainer::FirstParty,
+        ),
         Harness {
             id: "byo-url".into(),
             name: "An agent you already run".into(),

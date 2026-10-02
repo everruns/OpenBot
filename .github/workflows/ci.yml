@@ -359,6 +359,28 @@ jobs:
         env:
           PICKED_HARNESS_IMAGE: openbot-agent-langgraph-agui:test
 
+  # The one Rust Bot. Its own job, cached apart, because its tests compile the Everruns framework.
+  everruns-harness:
+    name: everruns harness
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@7e38f4b43b4db5c8dd498af069a4f6196df1d067 # master
+        with:
+          toolchain: stable
+          components: rustfmt, clippy
+      - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
+        with:
+          workspaces: agent-everruns
+      - run: cargo fmt --check
+        working-directory: agent-everruns
+      - run: cargo clippy --locked --all-targets -- -D warnings
+        working-directory: agent-everruns
+      - run: cargo test --locked
+        working-directory: agent-everruns
+
   build:
     name: build
     runs-on: ubuntu-latest
@@ -565,7 +587,7 @@ jobs:
     name: verify
     runs-on: ubuntu-latest
     if: always()
-    needs: [static, deployables, chart, test, startup, python-harness, build, migrations, image, component-dockerfiles]
+    needs: [static, deployables, chart, test, startup, python-harness, everruns-harness, build, migrations, image, component-dockerfiles]
     steps:
       - name: Require every check
         env:

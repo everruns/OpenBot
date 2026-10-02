@@ -13,3 +13,5 @@ app/dist
 *.log
 .DS_Store
 assets/*.svg
+# Cargo build output. The Rust Bot builds inside its image; a local target/ is gigabytes.
+**/target
