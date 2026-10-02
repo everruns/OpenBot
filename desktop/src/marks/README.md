@@ -3,6 +3,10 @@
 From [`@lobehub/icons-static-svg`](https://github.com/lobehub/lobe-icons), MIT licensed, vendored
 rather than fetched because the setup window draws before it has any network guarantee.
 
+`everruns.svg` is the exception to the source: Everruns is in no maintained set, so it is the
+vendor's own `logo-mono.svg` from [everruns/everruns](https://github.com/everruns/everruns), scaled
+to the 24-unit box the others use and drawn in `currentColor`. Still not invented.
+
 Renamed to the harness or provider id they belong to, so a row finds its mark by its own id and
 there is no second mapping to keep in step.
 

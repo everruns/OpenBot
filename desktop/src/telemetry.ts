@@ -22,6 +22,7 @@ const HARNESSES = {
   ag2: "ag2",
   langroid: "langroid",
   mastra: "mastra",
+  everruns: "everruns",
   "byo-url": "byo_url",
 } as const;
 

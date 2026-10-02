@@ -8,6 +8,19 @@ Newest first. `Unreleased` is what is on `main` and not yet tagged.
 
 ## Unreleased
 
+### Everruns is a Bot you can pick
+
+The desktop's Bot picker offers **Everruns**, `openbot-agent-everruns` on port 4214. It is the
+[Everruns](https://github.com/everruns/everruns) framework serving its own AG-UI run, so it takes
+the model screen's OpenAI, Anthropic or Google choice like the others, refuses any caller without
+the server's token, and turns the coworker's standing role into the agent's instructions. Each
+channel thread is one Everruns session, kept for as long as the container runs.
+
+Two limits for now. The framework's AG-UI run does not yet read the tools a run offers, so this Bot
+answers in text and does not use the computer or connectors. And a restarted container starts each
+thread over. An Everruns server's own AG-UI endpoint is not a substitute yet: it refuses a run that
+carries a system message, and every OpenBot run carries the coworker's standing role as one.
+
 ### `start.sh` names the port to change on macOS
 
 When the API server's or the app's port was held by another process, `start.sh` was meant to say

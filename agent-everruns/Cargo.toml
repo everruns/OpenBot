@@ -1,0 +1,31 @@
+[package]
+name = "openbot-agent-everruns"
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+publish = false
+description = "Everruns as an OpenBot Bot: the framework's own AG-UI run, behind OpenBot's token."
+
+# Out of every workspace: the image builds this directory alone, from its own lockfile.
+[workspace]
+
+# One revision for every everruns crate, because the driver crates and the facade must agree on
+# the `Provider` type they pass between them. A git pin rather than a crates.io version because
+# `Session::ag_ui` (the `ag-ui` feature) landed after 0.33.0, the latest release; move to the
+# release that carries it once there is one.
+[dependencies]
+everruns = { git = "https://github.com/everruns/everruns", rev = "252785c0a4a49da828ea26489bbf7e837683f42d", default-features = false, features = ["ag-ui"] }
+everruns-openai = { git = "https://github.com/everruns/everruns", rev = "252785c0a4a49da828ea26489bbf7e837683f42d" }
+everruns-anthropic = { git = "https://github.com/everruns/everruns", rev = "252785c0a4a49da828ea26489bbf7e837683f42d" }
+everruns-gemini = { git = "https://github.com/everruns/everruns", rev = "252785c0a4a49da828ea26489bbf7e837683f42d" }
+axum = "0.8"
+futures = "0.3"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", features = ["macros", "rt-multi-thread", "net", "signal"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+[dev-dependencies]
+http-body-util = "0.1"
+tower = { version = "0.5", features = ["util"] }

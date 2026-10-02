@@ -33,6 +33,7 @@
     "agent-llamaindex": { "provider": "openai", "model": "gpt-5.5" },
     "agent-microsoft": { "provider": "openai", "model": "gpt-4o-mini" },
     "agent-pydantic-ai": { "provider": "openai", "model": "gpt-4o-mini" },
-    "agent-strands": { "provider": "openai", "model": "gpt-4o-mini" }
+    "agent-strands": { "provider": "openai", "model": "gpt-4o-mini" },
+    "agent-everruns": { "provider": "openai", "model": "gpt-4o-mini" }
   }
 }
