@@ -358,6 +358,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "crc32fast"
+version = "1.5.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "01a7799fd6b852db0e61728dde9a204c423b44d689dbd432522543614b490e78"
+dependencies = [
+ "cfg-if",
+]
+
+[[package]]
 name = "cron"
 version = "0.17.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -475,22 +484,16 @@ dependencies = [
 
 [[package]]
 name = "everruns"
-version = "0.34.1"
-source = "git+https://github.com/everruns/everruns?rev=0045eecf7e2a6b10ede760a081bf564adf91d46a#0045eecf7e2a6b10ede760a081bf564adf91d46a"
+version = "0.41.0"
+source = "git+https://github.com/everruns/everruns?rev=00270844ba248fc6a7bb80f191e14cebe29d3974#00270844ba248fc6a7bb80f191e14cebe29d3974"
 dependencies = [
  "async-trait",
  "axum",
  "base64",
- "everruns-ag-ui",
- "everruns-anthropic",
- "everruns-builtins",
- "everruns-capability",
+ "everruns-contracts",
  "everruns-core",
- "everruns-gemini",
- "everruns-host",
+ "everruns-drivers",
  "everruns-llmsim",
- "everruns-openai",
- "everruns-provider",
  "futures",
  "serde",
  "serde_json",
@@ -501,77 +504,65 @@ dependencies = [
 ]
 
 [[package]]
-name = "everruns-ag-ui"
-version = "0.34.1"
-source = "git+https://github.com/everruns/everruns?rev=0045eecf7e2a6b10ede760a081bf564adf91d46a#0045eecf7e2a6b10ede760a081bf564adf91d46a"
+name = "everruns-contracts"
+version = "0.41.0"
+source = "git+https://github.com/everruns/everruns?rev=00270844ba248fc6a7bb80f191e14cebe29d3974#00270844ba248fc6a7bb80f191e14cebe29d3974"
 dependencies = [
- "everruns-core",
- "everruns-provider",
- "serde",
- "serde_json",
-]
-
-[[package]]
-name = "everruns-anthropic"
-version = "0.34.1"
-source = "git+https://github.com/everruns/everruns?rev=0045eecf7e2a6b10ede760a081bf564adf91d46a#0045eecf7e2a6b10ede760a081bf564adf91d46a"
-dependencies = [
+ "anyhow",
  "async-trait",
+ "base64",
+ "bytes",
  "chrono",
+ "cron",
  "eventsource-stream",
- "everruns-provider",
  "futures",
+ "getrandom 0.3.4",
+ "getrandom 0.4.3",
+ "globset",
+ "gloo-timers",
+ "hex",
+ "http",
+ "inventory",
+ "jsonschema",
+ "rand 0.10.3",
+ "regex",
  "reqwest",
+ "rustls",
  "serde",
  "serde_json",
- "tokio",
- "tracing",
-]
-
-[[package]]
-name = "everruns-builtins"
-version = "0.34.1"
-source = "git+https://github.com/everruns/everruns?rev=0045eecf7e2a6b10ede760a081bf564adf91d46a#0045eecf7e2a6b10ede760a081bf564adf91d46a"
-dependencies = [
- "async-trait",
- "chrono",
- "chrono-tz",
- "everruns-capability",
- "everruns-core",
- "everruns-provider",
- "serde",
- "serde_json",
+ "serde_yaml",
  "sha2",
+ "thiserror",
  "tokio",
+ "tokio-tungstenite",
+ "tokio-util",
+ "toml",
  "tracing",
+ "url",
  "uuid",
-]
-
-[[package]]
-name = "everruns-capability"
-version = "0.34.1"
-source = "git+https://github.com/everruns/everruns?rev=0045eecf7e2a6b10ede760a081bf564adf91d46a#0045eecf7e2a6b10ede760a081bf564adf91d46a"
-dependencies = [
- "serde",
- "serde_json",
+ "wasm-bindgen-futures",
+ "web-time",
 ]
 
 [[package]]
 name = "everruns-core"
-version = "0.34.1"
-source = "git+https://github.com/everruns/everruns?rev=0045eecf7e2a6b10ede760a081bf564adf91d46a#0045eecf7e2a6b10ede760a081bf564adf91d46a"
+version = "0.41.0"
+source = "git+https://github.com/everruns/everruns?rev=00270844ba248fc6a7bb80f191e14cebe29d3974#00270844ba248fc6a7bb80f191e14cebe29d3974"
 dependencies = [
  "anyhow",
  "async-trait",
  "base64",
  "chrono",
+ "chrono-tz",
  "cron",
- "everruns-capability",
- "everruns-provider",
+ "everruns-contracts",
+ "fs2",
  "futures",
  "globset",
+ "ignore",
  "inventory",
  "jsonschema",
+ "libc",
  "rand 0.10.3",
  "regex",
  "serde",
@@ -585,135 +576,40 @@ dependencies = [
  "tracing",
  "url",
  "uuid",
+ "web-time",
+ "zip",
 ]
 
 [[package]]
-name = "everruns-engine"
-version = "0.34.1"
-source = "git+https://github.com/everruns/everruns?rev=0045eecf7e2a6b10ede760a081bf564adf91d46a#0045eecf7e2a6b10ede760a081bf564adf91d46a"
+name = "everruns-drivers"
+version = "0.41.0"
+source = "git+https://github.com/everruns/everruns?rev=00270844ba248fc6a7bb80f191e14cebe29d3974#00270844ba248fc6a7bb80f191e14cebe29d3974"
 dependencies = [
  "async-trait",
  "chrono",
- "everruns-capability",
- "everruns-core",
- "everruns-provider",
- "futures",
- "serde",
- "serde_json",
- "sha2",
- "tokio",
- "tokio-util",
- "tracing",
- "uuid",
-]
-
-[[package]]
-name = "everruns-gemini"
-version = "0.34.1"
-source = "git+https://github.com/everruns/everruns?rev=0045eecf7e2a6b10ede760a081bf564adf91d46a#0045eecf7e2a6b10ede760a081bf564adf91d46a"
-dependencies = [
- "async-trait",
  "eventsource-stream",
- "everruns-provider",
+ "everruns-contracts",
  "futures",
  "reqwest",
  "serde",
  "serde_json",
- "tokio",
- "tracing",
-]
-
-[[package]]
-name = "everruns-host"
-version = "0.34.1"
-source = "git+https://github.com/everruns/everruns?rev=0045eecf7e2a6b10ede760a081bf564adf91d46a#0045eecf7e2a6b10ede760a081bf564adf91d46a"
-dependencies = [
- "async-trait",
- "chrono",
- "everruns-builtins",
- "everruns-capability",
- "everruns-core",
- "everruns-engine",
- "everruns-provider",
- "fs2",
- "futures",
- "ignore",
- "libc",
- "regex",
- "serde",
- "serde_json",
- "sha2",
  "thiserror",
  "tokio",
  "tracing",
- "uuid",
 ]
 
 [[package]]
 name = "everruns-llmsim"
-version = "0.34.1"
-source = "git+https://github.com/everruns/everruns?rev=0045eecf7e2a6b10ede760a081bf564adf91d46a#0045eecf7e2a6b10ede760a081bf564adf91d46a"
+version = "0.41.0"
+source = "git+https://github.com/everruns/everruns?rev=00270844ba248fc6a7bb80f191e14cebe29d3974#00270844ba248fc6a7bb80f191e14cebe29d3974"
 dependencies = [
  "anyhow",
  "async-trait",
- "everruns-provider",
+ "everruns-contracts",
  "futures",
  "llmsim",
  "serde_json",
  "tokio",
-]
-
-[[package]]
-name = "everruns-model-profiles"
-version = "0.34.1"
-source = "git+https://github.com/everruns/everruns?rev=0045eecf7e2a6b10ede760a081bf564adf91d46a#0045eecf7e2a6b10ede760a081bf564adf91d46a"
-dependencies = [
- "serde",
-]
-
-[[package]]
-name = "everruns-openai"
-version = "0.34.1"
-source = "git+https://github.com/everruns/everruns?rev=0045eecf7e2a6b10ede760a081bf564adf91d46a#0045eecf7e2a6b10ede760a081bf564adf91d46a"
-dependencies = [
- "async-trait",
- "chrono",
- "everruns-provider",
- "reqwest",
- "serde",
- "serde_json",
- "tokio",
- "tracing",
-]
-
-[[package]]
-name = "everruns-provider"
-version = "0.34.1"
-source = "git+https://github.com/everruns/everruns?rev=0045eecf7e2a6b10ede760a081bf564adf91d46a#0045eecf7e2a6b10ede760a081bf564adf91d46a"
-dependencies = [
- "anyhow",
- "async-trait",
- "base64",
- "bytes",
- "chrono",
- "eventsource-stream",
- "everruns-model-profiles",
- "futures",
- "hex",
- "http",
- "rand 0.10.3",
- "regex",
- "reqwest",
- "rustls",
- "serde",
- "serde_json",
- "sha2",
- "thiserror",
- "tokio",
- "tokio-tungstenite",
- "tracing",
- "url",
- "uuid",
 ]
 
 [[package]]
@@ -732,6 +628,15 @@ name = "find-msvc-tools"
 version = "0.1.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "aedcfb3409746eddb02b9e19ebda1c3394f759a152e48ee875a0844d1b955484"
+
+[[package]]
+name = "flate2"
+version = "1.1.10"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6e634e2e0ebac1ee034020da1ca582e17ffe4e0f5e985823721e168928136dcb"
+dependencies = [
+ "zlib-rs",
+]
 
 [[package]]
 name = "fluent-uri"
@@ -925,6 +830,18 @@ dependencies = [
  "log",
  "regex-automata",
  "regex-syntax",
+]
+
+[[package]]
+name = "gloo-timers"
+version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "482ce8a491a501da4cd806bd190275363d674f2845005c6ddbd5d3e1dd54495d"
+dependencies = [
+ "futures-channel",
+ "futures-core",
+ "js-sys",
+ "wasm-bindgen",
 ]
 
 [[package]]
@@ -2265,6 +2182,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "simd-adler32"
+version = "0.3.10"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3a219298ac11a56ea9a6d2120044824d6f01aeb034955e7af7bc16858527deea"
+
+[[package]]
 name = "simd_cesu8"
 version = "1.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2665,6 +2588,12 @@ dependencies = [
  "sha1",
  "thiserror",
 ]
+
+[[package]]
+name = "typed-path"
+version = "0.12.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8e28f89b80c87b8fb0cf04ab448d5dd0dd0ade2f8891bae878de66a75a28600e"
 
 [[package]]
 name = "typenum"
@@ -3190,7 +3119,39 @@ dependencies = [
 ]
 
 [[package]]
+name = "zip"
+version = "8.6.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2d04a6b5381502aa6087c94c669499eb1602eb9c5e8198e534de571f7154809b"
+dependencies = [
+ "crc32fast",
+ "flate2",
+ "indexmap",
+ "memchr",
+ "typed-path",
+ "zopfli",
+]
+
+[[package]]
+name = "zlib-rs"
+version = "0.6.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b268e58e7c693d7c271f93ffc4ba3b380412554231c85bf61ca7af91042a4112"
+
+[[package]]
 name = "zmij"
 version = "1.0.23"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "29666d0abbfad1e3dc4dcf6144730dd3a3ab225bbbdac83319345b1b44ccfc1b"
+
+[[package]]
+name = "zopfli"
+version = "0.8.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f05cd8797d63865425ff89b5c4a48804f35ba0ce8d125800027ad6017d2b5249"
+dependencies = [
+ "bumpalo",
+ "crc32fast",
+ "log",
+ "simd-adler32",
+]
