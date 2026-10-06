@@ -1,0 +1,27 @@
+[package]
+name = "openbot-agent-everruns"
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+publish = false
+description = "Everruns as an OpenBot Bot: the framework's own AG-UI run, behind OpenBot's token."
+
+# Out of every workspace: the image builds this directory alone, from its own lockfile.
+[workspace]
+
+# A git pin rather than a crates.io version because the pieces this Bot is built on (the facade's
+# provider features, per-run instructions, surface tools, thread seeding and the ready-made axum
+# handler) landed after 0.33.0, the latest release; move to the release that carries them, 0.34.0,
+# once it is published.
+[dependencies]
+everruns = { git = "https://github.com/everruns/everruns", rev = "00270844ba248fc6a7bb80f191e14cebe29d3974", default-features = false, features = ["ag-ui-axum", "openai", "anthropic", "gemini"] }
+axum = "0.8"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", features = ["macros", "rt-multi-thread", "net", "signal"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+[dev-dependencies]
+http-body-util = "0.1"
+tower = { version = "0.5", features = ["util"] }

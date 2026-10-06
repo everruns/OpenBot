@@ -707,6 +707,7 @@ pub enum Harness {
     Ag2,
     Langroid,
     Mastra,
+    Everruns,
     ByoUrl,
 }
 
@@ -800,7 +801,7 @@ pub fn schema_json() -> serde_json::Value {
         },
         "events": {
             "step_viewed": { "step": ["welcome", "harness", "install", "model", "connect", "ask"] },
-            "harness_chosen": { "harness": ["crewai", "llamaindex", "agno", "langgraph", "google_adk", "pydantic_ai", "microsoft_agent_framework", "claude_agent_sdk", "strands", "ag2", "langroid", "mastra", "byo_url"] },
+            "harness_chosen": { "harness": ["crewai", "llamaindex", "agno", "langgraph", "google_adk", "pydantic_ai", "microsoft_agent_framework", "claude_agent_sdk", "strands", "ag2", "langroid", "mastra", "everruns", "byo_url"] },
             "model_chosen": { "provider": ["openai", "anthropic", "compatible", "none"], "credential_path": ["subscription", "api_key", "none"], "custom_base_url": "bool" },
             "engine_detected": { "engine": ["docker", "podman", "none"], "responding": "bool" },
             "engine_installed": { "engine": ["docker", "podman", "none"], "outcome": ["success", "failure"] },
